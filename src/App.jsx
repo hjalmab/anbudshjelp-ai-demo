@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 // --- LOGO ENDRING ---
 // Bruk thumbnail-linken som fungerer for embedding.
-// "sz=w1000" setter bredden til 1000px (du kan justere dette tallet eller fjerne det for standard).
-const logo = "https://drive.google.com/thumbnail?id=1z_aj3yHWSBDwhUF4p6b4WEOmuyGV_jKL&sz=w1000";
+// "sz=w2000" setter bredden til 2000px (du kan justere dette tallet eller fjerne det for standard).
+const logo = "https://drive.google.com/thumbnail?id=1z_aj3yHWSBDwhUF4p6b4WEOmuyGV_jKL&sz=w2000";
 
 const styles = `
   :root {

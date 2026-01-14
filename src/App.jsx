@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 
 // --- LOGO ENDRING ---
-// Vi bruker en direkte link til Google Drive bildet i stedet for lokal import
-const logo = "https://drive.google.com/uc?export=view&id=1z_aj3yHWSBDwhUF4p6b4WEOmuyGV_jKL";
+// Bruk thumbnail-linken som fungerer for embedding.
+// "sz=w1000" setter bredden til 1000px (du kan justere dette tallet eller fjerne det for standard).
+const logo = "https://drive.google.com/thumbnail?id=1z_aj3yHWSBDwhUF4p6b4WEOmuyGV_jKL&sz=w1000";
 
 const styles = `
   :root {

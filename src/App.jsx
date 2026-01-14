@@ -889,7 +889,7 @@ const Sidebar = ({ currentPage, onNavigate }) => {
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
             </svg>
-            Dokumenter
+            Firmadokumenter
           </button>
           <button className={`nav-item ${currentPage === 'tilbudsbibliotek' ? 'active' : ''}`} onClick={() => onNavigate('tilbudsbibliotek')}>
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1229,7 +1229,7 @@ const DokumentbibliotekPage = () => {
   return (
     <main className="main-content">
       <div className="page-header">
-        <h1 className="page-title">📚 Dokumentbibliotek</h1>
+        <h1 className="page-title">📚 Firmadokumenter</h1>
         <p className="page-description">
           Formalia og sertifiseringer som kreves for å delta i offentlige anbud. 
           Sørg for at disse alltid er oppdaterte for å unngå avvisning.

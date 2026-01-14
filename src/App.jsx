@@ -1230,7 +1230,7 @@ const DokumentbibliotekPage = () => {
   return (
     <main className="main-content">
       <div className="page-header">
-        <h1 className="page-title">📚 Firmadokumenter</h1>
+        <h1 className="page-title"><img src="https://drive.google.com/thumbnail?id=1Bbh-BE7GgLTgl_3GYaY9DmOZeH37-vyr&sz=w100" alt="" style={{height: '28px', marginRight: '8px', verticalAlign: 'middle'}} /> Firmadokumenter</h1>
         <p className="page-description">
           Formalia og sertifiseringer som kreves for å delta i offentlige anbud. 
           Sørg for at disse alltid er oppdaterte for å unngå avvisning.

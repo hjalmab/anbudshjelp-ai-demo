@@ -991,19 +991,151 @@ const styles = `
     margin-bottom: 24px;
     flex-wrap: wrap;
   }
+
+  /* --- SIDEBAR TOGGLE & MOBILE STYLES --- */
+  .menu-toggle-btn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    transition: all 0.2s;
+  }
+
+  .menu-toggle-btn:hover {
+    background: var(--bg-primary);
+    color: var(--finndoff-teal);
+  }
+
+  .menu-toggle-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(11, 35, 51, 0.5);
+    z-index: 99;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .sidebar-overlay.visible {
+    opacity: 1;
+  }
+
+  /* Desktop: sidebar can be collapsed */
+  .sidebar.collapsed {
+    transform: translateX(-100%);
+  }
+
+  .main-content.sidebar-collapsed {
+    margin-left: 0;
+  }
+
+  .analysis-footer.sidebar-collapsed {
+    left: 0;
+  }
+
+  /* Mobile styles */
+  @media (max-width: 768px) {
+    .menu-toggle-btn {
+      display: flex;
+    }
+
+    .sidebar {
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar.mobile-open {
+      transform: translateX(0);
+    }
+
+    .sidebar-overlay {
+      display: block;
+    }
+
+    .main-content {
+      margin-left: 0;
+    }
+
+    .main-content.sidebar-collapsed {
+      margin-left: 0;
+    }
+
+    .analysis-footer {
+      left: 0;
+    }
+
+    .top-nav {
+      display: none;
+    }
+
+    .header-right .header-link {
+      display: none;
+    }
+
+    .page-title {
+      font-size: 22px;
+    }
+
+    .project-cards-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .doc-cards-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .go-no-go-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .doc-filter-tabs {
+      flex-wrap: wrap;
+    }
+
+    .filter-row {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
 `;
 
 // --- TOP HEADER KOMPONENT ---
-const TopHeader = () => {
+const TopHeader = ({ onMenuToggle, isSidebarOpen }) => {
   return (
     <header className="top-header">
       <div className="header-left">
+        <button className="menu-toggle-btn" onClick={onMenuToggle} aria-label="Toggle menu">
+          {isSidebarOpen ? (
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          ) : (
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          )}
+        </button>
+
         <div className="logo-container">
           {/* Logo sourced from Google Drive URL */}
-          <img 
-            src={logo} 
-            alt="Finndoff Logo" 
-            className="logo-img" 
+          <img
+            src={logo}
+            alt="Finndoff Logo"
+            className="logo-img"
           />
         </div>
 
@@ -1036,9 +1168,14 @@ const TopHeader = () => {
 };
 
 // Shared Sidebar Component
-const Sidebar = ({ currentPage, onNavigate }) => {
+const Sidebar = ({ currentPage, onNavigate, isOpen, onClose }) => {
   return (
-    <aside className="sidebar">
+    <>
+      <div
+        className={`sidebar-overlay ${isOpen ? 'visible' : ''}`}
+        onClick={onClose}
+      />
+      <aside className={`sidebar ${isOpen ? 'mobile-open' : ''}`}>
       <nav className="sidebar-nav">
         <div className="nav-card">
           <div className="nav-section-title">Anbudsverktøy</div>
@@ -1101,6 +1238,7 @@ const Sidebar = ({ currentPage, onNavigate }) => {
         </div>
       </nav>
     </aside>
+    </>
   );
 };
 
@@ -1830,6 +1968,21 @@ const PlaceholderPage = ({ title, description, icon }) => (
 // Main App Component
 const App = () => {
   const [currentPage, setCurrentPage] = useState('dokumentbibliotek');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
+  };
+
+  const handleNavigate = (page) => {
+    setCurrentPage(page);
+    // Close sidebar on mobile after navigation
+    setIsSidebarOpen(false);
+  };
 
   const renderPage = () => {
     switch (currentPage) {
@@ -1840,7 +1993,7 @@ const App = () => {
       case 'dokumentbibliotek': return <DokumentbibliotekPage />;
       case 'nokkelressurser': return <NokkelressurserPage />;
       case 'tilbudsbibliotek': return <TilbudsbibliotekPage />;
-      case 'go-no-go': return <GoNoGoPage />; // HER: Laster den nye siden
+      case 'go-no-go': return <GoNoGoPage />;
       default: return <DokumentbibliotekPage />;
     }
   };
@@ -1849,11 +2002,13 @@ const App = () => {
     <>
       <style>{styles}</style>
       <div className="app-layout">
-        {/* New Top Header */}
-        <TopHeader />
-        
-        {/* Sidebar and Content pushed down by Header */}
-        <Sidebar currentPage={currentPage} onNavigate={setCurrentPage} />
+        <TopHeader onMenuToggle={toggleSidebar} isSidebarOpen={isSidebarOpen} />
+        <Sidebar
+          currentPage={currentPage}
+          onNavigate={handleNavigate}
+          isOpen={isSidebarOpen}
+          onClose={closeSidebar}
+        />
         {renderPage()}
       </div>
     </>

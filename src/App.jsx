@@ -797,6 +797,200 @@ const styles = `
   }
 
   .doc-card.uploading { pointer-events: none; }
+
+  /* --- PROJECT CARD STYLES --- */
+  .project-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 24px;
+  }
+
+  .project-card {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .project-card-image {
+    position: relative;
+    width: 100%;
+    height: 160px;
+    overflow: hidden;
+  }
+
+  .project-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .project-status-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .project-status-badge.vunnet { background: var(--status-green); color: white; }
+  .project-status-badge.tapt { background: var(--status-red); color: white; }
+  .project-status-badge.pågående { background: var(--status-yellow); color: var(--finndoff-dark); }
+  .project-status-badge.avventer { background: var(--finndoff-teal); color: white; }
+
+  .project-star-btn {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+
+  .project-star-btn:hover {
+    background: white;
+    transform: scale(1.1);
+  }
+
+  .project-star-btn svg {
+    width: 20px;
+    height: 20px;
+    transition: all 0.2s;
+  }
+
+  .project-star-btn.starred svg {
+    fill: #f59e0b;
+    color: #f59e0b;
+  }
+
+  .project-star-btn:not(.starred) svg {
+    fill: none;
+    color: var(--text-secondary);
+  }
+
+  .project-card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .project-card-header {
+    margin-bottom: 12px;
+  }
+
+  .project-card-title {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--finndoff-dark);
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+
+  .project-card-client {
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  .project-category-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    background: var(--bg-primary);
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+  }
+
+  .project-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    margin-top: auto;
+  }
+
+  .project-metric {
+    text-align: center;
+  }
+
+  .project-metric-icon {
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+
+  .project-metric-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--finndoff-dark);
+  }
+
+  .project-metric-label {
+    font-size: 10px;
+    color: var(--text-light);
+    text-transform: uppercase;
+  }
+
+  .reference-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+
+  .reference-toggle:hover {
+    border-color: var(--finndoff-teal);
+  }
+
+  .reference-toggle.active {
+    background: #fef3c7;
+    border-color: #f59e0b;
+    color: #b45309;
+  }
+
+  .reference-toggle svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .filter-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
 `;
 
 // --- TOP HEADER KOMPONENT ---
@@ -1380,149 +1574,239 @@ const NokkelressurserPage = () => {
   );
 };
 
-// --- TILBUDSBIBLIOTEK PAGE ---
+// --- PROJECT CARD COMPONENT ---
+const ProjectCard = ({ project, onToggleReference }) => {
+  return (
+    <div className="project-card">
+      <div className="project-card-image">
+        <img src={project.imageUrl} alt={project.title} />
+        <button
+          className={`project-star-btn ${project.isReference ? 'starred' : ''}`}
+          onClick={() => onToggleReference(project.id)}
+          title={project.isReference ? 'Fjern fra referanseprosjekter' : 'Legg til som referanseprosjekt'}
+        >
+          <svg viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+          </svg>
+        </button>
+        <span className={`project-status-badge ${project.status.toLowerCase()}`}>
+          {project.status}
+        </span>
+      </div>
+
+      <div className="project-card-content">
+        <div className="project-card-header">
+          <h4 className="project-card-title">{project.title}</h4>
+          <p className="project-card-client">{project.client}</p>
+        </div>
+
+        <span className="project-category-badge">{project.category}</span>
+
+        <div className="project-metrics">
+          <div className="project-metric">
+            <div className="project-metric-icon">💰</div>
+            <div className="project-metric-value">{project.value}</div>
+            <div className="project-metric-label">Verdi</div>
+          </div>
+          <div className="project-metric">
+            <div className="project-metric-icon">📅</div>
+            <div className="project-metric-value">{project.period}</div>
+            <div className="project-metric-label">Periode</div>
+          </div>
+          <div className="project-metric">
+            <div className="project-metric-icon">📍</div>
+            <div className="project-metric-value">{project.location}</div>
+            <div className="project-metric-label">Sted</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// --- PROSJEKTBIBLIOTEK PAGE ---
 const TilbudsbibliotekPage = () => {
-  const [selectedStatus, setSelectedStatus] = useState('all');
+  const [statusFilter, setStatusFilter] = useState('all');
+  const [showReferencesOnly, setShowReferencesOnly] = useState(false);
 
-  const proposals = [
+  const [projects, setProjects] = useState([
     {
-      id: 301,
-      title: 'Rammeavtale - Graving og massetransport',
-      buyer: 'Ulstein Kommune',
-      doffinId: '2025-118361',
-      status: 'won',
-      submittedDate: '10. des 2025',
-      value: '7,5 MNOK',
-      score: '98/100',
-      description: 'Rammeavtale for maskintjenester og transport.'
+      id: "1",
+      title: "VVA Rødbergveien",
+      client: "Harstad Kommune",
+      value: "50 MNOK",
+      period: "2018–2020",
+      location: "Harstad",
+      status: "Vunnet",
+      category: "Vei/VA",
+      isReference: true,
+      imageUrl: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2669&auto=format&fit=crop"
     },
     {
-      id: 302,
-      title: 'Tunnel vedlikehold 2026-2028 Nordland',
-      buyer: 'Nordland Fylkeskommune',
-      doffinId: '2025-120858',
-      status: 'lost',
-      submittedDate: '15. jan 2026',
-      value: '60 MNOK',
-      score: '85/100',
-      description: 'Elektro og byggteknisk vedlikehold.',
-      feedback: 'Pris vektet høyere enn forventet.'
+      id: "2",
+      title: "Riving Radarstasjon (Gompen)",
+      client: "Forsvarsbygg",
+      value: "30 MNOK",
+      period: "2008–2010",
+      location: "Sørreisa",
+      status: "Vunnet",
+      category: "Riving",
+      isReference: true,
+      imageUrl: "https://images.unsplash.com/photo-1599691653303-34e2c0571b76?q=80&w=2670&auto=format&fit=crop"
     },
     {
-      id: 303,
-      title: 'E10 Evenes flyplasskryss',
-      buyer: 'Statens vegvesen',
-      doffinId: '2026-100006',
-      status: 'pending',
-      submittedDate: '02. feb 2026',
-      value: 'Estimat ikke angitt',
-      score: '-',
-      description: 'Ny utforming av kryssområde E10.'
+      id: "3",
+      title: "PS-Mustaparta II",
+      client: "Harstad Kommune",
+      value: "49 MNOK",
+      period: "2023–2024",
+      location: "Harstad",
+      status: "Vunnet",
+      category: "VA",
+      isReference: true,
+      imageUrl: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2670&auto=format&fit=crop"
+    },
+    {
+      id: "4",
+      title: "Miljøopprydding Banak Flystasjon",
+      client: "Forsvarsbygg",
+      value: "14 MNOK",
+      period: "2008–2010",
+      location: "Lakselv",
+      status: "Vunnet",
+      category: "Miljøsanering",
+      isReference: true,
+      imageUrl: "https://images.unsplash.com/photo-1599691653303-34e2c0571b76?q=80&w=2670&auto=format&fit=crop"
+    },
+    {
+      id: "5",
+      title: "VA Bergselvdammen - Langsletta",
+      client: "Harstad Kommune",
+      value: "41 MNOK",
+      period: "2019–2021",
+      location: "Harstad",
+      status: "Vunnet",
+      category: "VA",
+      isReference: true,
+      imageUrl: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=2669&auto=format&fit=crop"
+    },
+    {
+      id: "6",
+      title: "Masseforflytning Ramsund",
+      client: "Forsvarsbygg",
+      value: "30 MNOK",
+      period: "2013",
+      location: "Ramsund",
+      status: "Vunnet",
+      category: "Miljø/Grunn",
+      isReference: true,
+      imageUrl: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2670&auto=format&fit=crop"
+    },
+    {
+      id: "7",
+      title: "Trafikkpark Blåbærhaugen",
+      client: "Harstad Kommune",
+      value: "9 MNOK",
+      period: "2022–2023",
+      location: "Harstad",
+      status: "Vunnet",
+      category: "Park/Anlegg",
+      isReference: true,
+      imageUrl: "https://images.unsplash.com/photo-1558435186-d31d102353a9?q=80&w=2670&auto=format&fit=crop"
+    },
+    {
+      id: "8",
+      title: "VA Ytre Kjelhus",
+      client: "Harstad Kommune",
+      value: "40 MNOK",
+      period: "2025–",
+      location: "Harstad",
+      status: "Pågående",
+      category: "VA",
+      isReference: false,
+      imageUrl: "https://images.unsplash.com/photo-1590644365607-1c5a2e97a39e?q=80&w=2670&auto=format&fit=crop"
+    },
+    {
+      id: "9",
+      title: "Tunnel vedlikehold Nordland",
+      client: "Nordland Fylkeskommune",
+      value: "60 MNOK",
+      period: "2026",
+      location: "Nordland",
+      status: "Tapt",
+      category: "Vei/Tunnel",
+      isReference: false,
+      imageUrl: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2669&auto=format&fit=crop"
     }
-  ];
+  ]);
 
-  const filteredProposals = selectedStatus === 'all' 
-    ? proposals 
-    : proposals.filter(p => p.status === selectedStatus);
-
-  // Helper for status badge styling
-  const getStatusBadge = (status) => {
-    switch(status) {
-      case 'won': return { label: 'VUNNET', color: 'var(--status-green)', bg: 'rgba(105, 190, 91, 0.1)' };
-      case 'lost': return { label: 'TAPT', color: 'var(--status-red)', bg: 'rgba(236, 91, 91, 0.1)' };
-      case 'pending': return { label: 'AVVENTER', color: 'var(--status-yellow)', bg: 'rgba(255, 203, 5, 0.1)' };
-      default: return { label: 'UKJENT', color: 'gray', bg: 'lightgray' };
-    }
+  const toggleReference = (id) => {
+    setProjects(prev => prev.map(p =>
+      p.id === id ? { ...p, isReference: !p.isReference } : p
+    ));
   };
+
+  // Filter logic
+  const filteredProjects = projects.filter(p => {
+    const statusMatch = statusFilter === 'all' || p.status === statusFilter;
+    const referenceMatch = !showReferencesOnly || p.isReference;
+    return statusMatch && referenceMatch;
+  });
+
+  const referenceCount = projects.filter(p => p.isReference).length;
 
   return (
     <main className="main-content">
       <div className="page-header">
         <h1 className="page-title">💼 Prosjektbibliotek</h1>
         <p className="page-description">
-          Arkiv over alle innleverte tilbud. Bruk historikken til å analysere hvorfor dere vinner eller taper, og gjenbruk gode formuleringer fra tidligere besvarelser.
+          Oversikt over alle prosjekter og anbud. Merk dine beste prosjekter med stjerne for å bruke dem som referanseprosjekter i fremtidige tilbud.
         </p>
       </div>
 
-      <div className="doc-filter-tabs">
-        <button className={`filter-tab ${selectedStatus === 'all' ? 'active' : ''}`} onClick={() => setSelectedStatus('all')}>
-          Alle tilbud <span className="tab-badge">{proposals.length}</span>
-        </button>
-        <button className={`filter-tab ${selectedStatus === 'won' ? 'active' : ''}`} onClick={() => setSelectedStatus('won')}>
-          🏆 Vunnet <span className="tab-badge">{proposals.filter(p=>p.status==='won').length}</span>
-        </button>
-        <button className={`filter-tab ${selectedStatus === 'pending' ? 'active' : ''}`} onClick={() => setSelectedStatus('pending')}>
-          ⏳ Avventer svar <span className="tab-badge">{proposals.filter(p=>p.status==='pending').length}</span>
-        </button>
-        <button className={`filter-tab ${selectedStatus === 'lost' ? 'active' : ''}`} onClick={() => setSelectedStatus('lost')}>
-          ❌ Tapt <span className="tab-badge">{proposals.filter(p=>p.status==='lost').length}</span>
+      <div className="filter-row">
+        <div className="doc-filter-tabs">
+          <button className={`filter-tab ${statusFilter === 'all' ? 'active' : ''}`} onClick={() => setStatusFilter('all')}>
+            Alle <span className="tab-badge">{projects.length}</span>
+          </button>
+          <button className={`filter-tab ${statusFilter === 'Vunnet' ? 'active' : ''}`} onClick={() => setStatusFilter('Vunnet')}>
+            Vunnet <span className="tab-badge">{projects.filter(p => p.status === 'Vunnet').length}</span>
+          </button>
+          <button className={`filter-tab ${statusFilter === 'Pågående' ? 'active' : ''}`} onClick={() => setStatusFilter('Pågående')}>
+            Pågående <span className="tab-badge">{projects.filter(p => p.status === 'Pågående').length}</span>
+          </button>
+          <button className={`filter-tab ${statusFilter === 'Tapt' ? 'active' : ''}`} onClick={() => setStatusFilter('Tapt')}>
+            Tapt <span className="tab-badge">{projects.filter(p => p.status === 'Tapt').length}</span>
+          </button>
+        </div>
+
+        <button
+          className={`reference-toggle ${showReferencesOnly ? 'active' : ''}`}
+          onClick={() => setShowReferencesOnly(!showReferencesOnly)}
+        >
+          <svg viewBox="0 0 24 24" fill={showReferencesOnly ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+          </svg>
+          Kun referanseprosjekter ({referenceCount})
         </button>
       </div>
 
-      <div className="doc-cards-grid">
-        {filteredProposals.map(prop => {
-          const badge = getStatusBadge(prop.status);
-          return (
-            <div key={prop.id} className="doc-card" style={{ borderLeft: `4px solid ${badge.color}` }}>
-              <div className="doc-card-header">
-                <div style={{ fontWeight: 'bold', fontSize: '12px', color: 'var(--finndoff-teal)' }}>
-                  {prop.doffinId}
-                </div>
-                <div style={{ 
-                  padding: '4px 8px', 
-                  borderRadius: '4px', 
-                  fontSize: '10px', 
-                  fontWeight: '700', 
-                  color: badge.color, 
-                  backgroundColor: badge.bg 
-                }}>
-                  {badge.label}
-                </div>
-              </div>
-
-              <div className="doc-card-body">
-                <h4 className="doc-card-title">{prop.title}</h4>
-                <div className="doc-category-subtitle" style={{ marginBottom: '12px' }}>{prop.buyer}</div>
-
-                <div className="doc-meta-list">
-                  <div className="doc-meta-row">
-                    <span>Levert: <strong>{prop.submittedDate}</strong></span>
-                  </div>
-                  <div className="doc-meta-row">
-                    <span>Verdi: <strong>{prop.value}</strong></span>
-                  </div>
-                   {prop.status !== 'pending' && (
-                    <div className="doc-meta-row">
-                      <span>Score: <strong>{prop.score}</strong></span>
-                    </div>
-                  )}
-                  {prop.feedback && (
-                    <div className="doc-meta-row" style={{ marginTop: '4px', fontStyle: 'italic', color: 'var(--status-red)' }}>
-                      "{prop.feedback}"
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              <div className="doc-card-actions">
-                <button className="btn btn-secondary">
-                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                  </svg>
-                  Se tilbud
-                </button>
-                <button className="btn btn-secondary">
-                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/>
-                  </svg>
-                  Kopier
-                </button>
-              </div>
-            </div>
-          );
-        })}
+      <div className="project-cards-grid">
+        {filteredProjects.map(project => (
+          <ProjectCard
+            key={project.id}
+            project={project}
+            onToggleReference={toggleReference}
+          />
+        ))}
       </div>
+
+      {filteredProjects.length === 0 && (
+        <div style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--text-secondary)' }}>
+          <div style={{ fontSize: '48px', marginBottom: '16px' }}>📭</div>
+          <p>Ingen prosjekter matcher filteret.</p>
+        </div>
+      )}
     </main>
   );
 };

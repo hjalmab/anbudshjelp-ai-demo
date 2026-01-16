@@ -1176,9 +1176,7 @@ const TopHeader = ({ onMenuToggle, isSidebarOpen }) => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
           ) : (
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+            <img src="https://drive.google.com/thumbnail?id=1hzKGqPw1C9UzcystndmzV8P0qEZZNWjn&sz=w100" alt="Menu" style={{width: '24px', height: '24px'}} />
           )}
         </button>
 
@@ -1799,17 +1797,23 @@ const ProjectCard = ({ project, onToggleReference }) => {
 
         <div className="project-metrics">
           <div className="project-metric">
-            <div className="project-metric-icon">💰</div>
+            <div className="project-metric-icon">
+              <img src="https://drive.google.com/thumbnail?id=1ahd4VRJ1eDdRipBWqfgnjF_JwaSo-ZMP&sz=w100" alt="" style={{width: '18px', height: '18px'}} />
+            </div>
             <div className="project-metric-value">{project.value}</div>
             <div className="project-metric-label">Verdi</div>
           </div>
           <div className="project-metric">
-            <div className="project-metric-icon">📅</div>
+            <div className="project-metric-icon">
+              <img src="https://drive.google.com/thumbnail?id=1A7-vr7S7g3xXtE4tKvhokrAEqYvVo7MD&sz=w100" alt="" style={{width: '18px', height: '18px'}} />
+            </div>
             <div className="project-metric-value">{project.period}</div>
             <div className="project-metric-label">Periode</div>
           </div>
           <div className="project-metric">
-            <div className="project-metric-icon">📍</div>
+            <div className="project-metric-icon">
+              <img src="https://drive.google.com/thumbnail?id=1DhBba2Mb5rxsilbqx026Mx1qWpmz1qBn&sz=w100" alt="" style={{width: '18px', height: '18px'}} />
+            </div>
             <div className="project-metric-value">{project.location}</div>
             <div className="project-metric-label">Sted</div>
           </div>
@@ -1847,7 +1851,7 @@ const TilbudsbibliotekPage = () => {
       status: "Vunnet",
       category: "Riving",
       isReference: true,
-      imageUrl: "https://images.unsplash.com/photo-1599691653303-34e2c0571b76?q=80&w=2670&auto=format&fit=crop"
+      imageUrl: "https://drive.google.com/thumbnail?id=15SUyArBnX-WP0GI1hm6Y3pwYt4z1ZU_3&sz=w800"
     },
     {
       id: "3",
@@ -2019,7 +2023,7 @@ const PlaceholderPage = ({ title, description, icon }) => (
 
 // Main App Component
 const App = () => {
-  const [currentPage, setCurrentPage] = useState('dokumentbibliotek');
+  const [currentPage, setCurrentPage] = useState('tilbudsbibliotek');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {

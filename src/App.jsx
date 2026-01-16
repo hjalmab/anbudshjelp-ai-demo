@@ -1110,6 +1110,58 @@ const styles = `
       flex-direction: column;
       align-items: stretch;
     }
+
+    .page-header {
+      margin-bottom: 16px;
+    }
+
+    .page-description {
+      display: none;
+    }
+
+    .main-content {
+      padding: 16px;
+      padding-bottom: 100px;
+    }
+
+    .project-cards-grid,
+    .doc-cards-grid {
+      gap: 12px;
+    }
+
+    .project-card-content {
+      padding: 14px;
+    }
+
+    .project-metrics {
+      gap: 8px;
+      padding-top: 12px;
+    }
+
+    .readiness-banner {
+      padding: 14px 18px;
+      margin-bottom: 20px;
+    }
+
+    .doc-filter-tabs {
+      padding: 3px;
+      margin-bottom: 16px;
+    }
+
+    .filter-tab {
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+
+    .reference-toggle {
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+
+    .nav-card {
+      padding: 8px;
+      margin-bottom: 8px;
+    }
   }
 `;
 

@@ -1640,7 +1640,7 @@ const TilbudsbibliotekPage = () => {
       status: "Vunnet",
       category: "Vei/VA",
       isReference: true,
-      imageUrl: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2669&auto=format&fit=crop"
+      imageUrl: "https://drive.google.com/thumbnail?id=1w_m40djhgnC0hG958mvLX6AdoAjvfl4x&sz=w800"
     },
     {
       id: "2",
@@ -1758,7 +1758,7 @@ const TilbudsbibliotekPage = () => {
   return (
     <main className="main-content">
       <div className="page-header">
-        <h1 className="page-title">💼 Prosjektbibliotek</h1>
+        <h1 className="page-title"><img src="https://drive.google.com/thumbnail?id=1-rzQiW5Ewmi_2jvGZfKsU5rNP8GmQu90&sz=w100" alt="" style={{height: '28px', marginRight: '8px', verticalAlign: 'middle'}} /> Prosjektbibliotek</h1>
         <p className="page-description">
           Oversikt over alle prosjekter og anbud. Merk dine beste prosjekter med stjerne for å bruke dem som referanseprosjekter i fremtidige tilbud.
         </p>

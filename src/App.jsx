@@ -49,12 +49,18 @@ const styles = `
     box-sizing: border-box;
   }
 
-  body {
+  html, body {
     font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
     background: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.6;
-    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-x: hidden;
+    max-width: 100vw;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  * {
+    max-width: 100%;
   }
 
   /* --- TOP HEADER --- */
@@ -1068,10 +1074,19 @@ const styles = `
 
     .main-content {
       margin-left: 0;
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
     }
 
     .main-content.sidebar-collapsed {
       margin-left: 0;
+    }
+
+    .app-layout {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
     }
 
     .analysis-footer {
@@ -1092,14 +1107,33 @@ const styles = `
 
     .project-cards-grid {
       grid-template-columns: 1fr;
+      width: 100%;
     }
 
     .doc-cards-grid {
       grid-template-columns: 1fr;
+      width: 100%;
     }
 
     .go-no-go-grid {
       grid-template-columns: 1fr;
+      width: 100%;
+    }
+
+    .project-card,
+    .doc-card,
+    .qual-item {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .tender-header-card {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .tender-meta-grid {
+      width: 100%;
     }
 
     .doc-filter-tabs {

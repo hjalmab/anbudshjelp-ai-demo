@@ -1162,6 +1162,236 @@ const styles = `
       padding: 8px;
       margin-bottom: 8px;
     }
+
+    .tender-header-card {
+      padding: 20px;
+    }
+
+    .tender-title {
+      font-size: 20px;
+    }
+
+    .tender-meta-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .qualification-grid {
+      gap: 10px;
+    }
+
+    .qual-item {
+      padding: 14px 16px;
+    }
+
+    .qual-title {
+      font-size: 13px;
+    }
+
+    .match-summary {
+      padding: 20px;
+      flex-direction: column;
+      text-align: center;
+      gap: 16px;
+    }
+  }
+
+  /* --- TENDER QUALIFICATION STYLES --- */
+  .tender-header-card {
+    background: linear-gradient(135deg, var(--finndoff-teal) 0%, #006a6e 100%);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    color: white;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tender-header-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%;
+  }
+
+  .tender-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+  }
+
+  .tender-title {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    position: relative;
+  }
+
+  .tender-client {
+    font-size: 15px;
+    opacity: 0.9;
+    margin-bottom: 20px;
+  }
+
+  .tender-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    position: relative;
+  }
+
+  .tender-meta-item {
+    background: rgba(255,255,255,0.1);
+    border-radius: var(--radius-md);
+    padding: 12px;
+    text-align: center;
+  }
+
+  .tender-meta-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.8;
+    margin-bottom: 4px;
+  }
+
+  .tender-meta-value {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .section-title {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--finndoff-dark);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .qualification-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .qual-item {
+    background: var(--bg-white);
+    border-radius: var(--radius-md);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    box-shadow: var(--shadow-sm);
+    border-left: 4px solid var(--status-green);
+  }
+
+  .qual-item.warning {
+    border-left-color: var(--status-yellow);
+  }
+
+  .qual-content {
+    flex: 1;
+  }
+
+  .qual-title {
+    font-weight: 600;
+    color: var(--finndoff-dark);
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+
+  .qual-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  .qual-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .qual-status.fulfilled {
+    background: rgba(105, 190, 91, 0.1);
+    color: var(--status-green);
+  }
+
+  .qual-status.pending {
+    background: rgba(255, 203, 5, 0.15);
+    color: #b45309;
+  }
+
+  .qual-status-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .match-summary {
+    background: linear-gradient(135deg, #e6f4e4 0%, #d4edda 100%);
+    border: 2px solid var(--status-green);
+    border-radius: var(--radius-lg);
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .match-text h3 {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #155724;
+    margin-bottom: 4px;
+  }
+
+  .match-text p {
+    font-size: 14px;
+    color: #155724;
+    opacity: 0.85;
+  }
+
+  .match-score {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .match-percentage {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 42px;
+    font-weight: 800;
+    color: var(--status-green);
+  }
+
+  .match-action .btn {
+    padding: 12px 24px;
+    font-size: 14px;
   }
 `;
 
@@ -1414,170 +1644,97 @@ const DocumentCard = ({ doc, onUpload }) => {
   );
 };
 
-// --- GO / NO-GO PAGE (NEW) ---
+// --- GO / NO-GO PAGE (Tender Qualification View) ---
 const GoNoGoPage = () => {
-  // Initial state: Alle sliderne starter på 3 (Nøytral)
-  const [scores, setScores] = useState({
-    1: 3, 2: 3, 3: 3, 4: 3, 5: 3, 
-    6: 3, 7: 3, 8: 3, 9: 3, 10: 3
-  });
-
-  const handleSliderChange = (id, val) => {
-    setScores(prev => ({ ...prev, [id]: parseInt(val) }));
-  };
-
-  // Data basert på Mercell Go/No-Go Matrise PDF
-  const criteria = [
-    {
-      id: 1,
-      title: "1. Relasjon til oppdragsgiver",
-      low: "Ukjent eller tilnærmet ukjent",
-      mid: "Kjenner noe, men ikke godt nok",
-      high: "Velutviklet og positivt forhold til oppdragsgiver"
-    },
-    {
-      id: 2,
-      title: "2. Kjennskap til oppdraget",
-      low: "Konkurransen er helt ukjent for oss",
-      mid: "Har ventet på konkurransen, noe kjennskap",
-      high: "Kjenner oppdraget og behovene godt"
-    },
-    {
-      id: 3,
-      title: "3. Konkurransesituasjon",
-      low: "Konkurrentene er foretrukket",
-      mid: "Konkurransen er åpen uten spesiell favoritt",
-      high: "Vi har et klart konkurransefortrinn"
-    },
-    {
-      id: 4,
-      title: "4. Kvalifikasjoner og erfaring",
-      low: "Bare såvidt kvalifisert, liten erfaring",
-      mid: "Godt kvalifisert, likt som konkurrentene",
-      high: "Svært godt kvalifisert med lang erfaring"
-    },
-    {
-      id: 5,
-      title: "5. Kapasitet og tilgjengelighet",
-      low: "Mye å gjøre, stor avstand",
-      mid: "Har litt kapasitet, mulig å utføre",
-      high: "God ledig tid og god tilgjengelighet"
-    },
-    {
-      id: 6,
-      title: "6. Lønnsomhet",
-      low: "Risiko for underskudd / lav margin",
-      mid: "Innenfor, oppdraget er lønnsomt",
-      high: "Svært lønnsomt, godt over budsjett"
-    },
-    {
-      id: 7,
-      title: "7. Prisensitivitet",
-      low: "Laveste pris vinner (Prisjakt)",
-      mid: "Balansert pris og kvalitet",
-      high: "Kvalitet/ytelse vektes høyere enn pris"
-    },
-    {
-      id: 8,
-      title: "8. Tilbudskostnad (ROI)",
-      low: "Høye kostnader vs. vinnersjanse",
-      mid: "Middels kostnader og sjanser",
-      high: "Høy ROI, kostnadseffektiv prosess"
-    },
-    {
-      id: 9,
-      title: "9. Strategisk match",
-      low: "Utenfor vårt markedssegment",
-      mid: "Passer greit i fokusområdet",
-      high: "Kjernevirksomhet vi skal vokse i"
-    },
-    {
-      id: 10,
-      title: "10. Vinnersjanser (Totalvurdering)",
-      low: "Lav (0-30%)",
-      mid: "Middels (30-60%)",
-      high: "Høy (60-90%)"
-    }
+  const qualifications = [
+    { id: 1, title: "Skatteattest", desc: "Gyldig attest, maks 6 mnd gammel", fulfilled: true },
+    { id: 2, title: "Firmaattest", desc: "Lovlig etablert foretak", fulfilled: true },
+    { id: 3, title: "Kredittrating A", desc: "Økonomisk kapasitet bekreftet", fulfilled: true },
+    { id: 4, title: "Referanseprosjekter", desc: "7 relevante prosjekter siste 5 år", fulfilled: true },
+    { id: 5, title: "HMS-system", desc: "Internkontrollforskriften oppfylt", fulfilled: true },
+    { id: 6, title: "Forsikringer", desc: "Alle nødvendige forsikringer på plass", fulfilled: true },
+    { id: 7, title: "Lærlingordning", desc: "Aktiv lærlingordning i bedriften", fulfilled: true },
+    { id: 8, title: "Lønns- og arbeidsvilkår", desc: "Egenerklæring signert", fulfilled: true },
   ];
 
-  // Kalkuleringer
-  const totalScore = Object.values(scores).reduce((a, b) => a + b, 0);
-  const averageScore = (totalScore / 10).toFixed(1);
-  const isGo = averageScore >= 4; // Grenseverdi fra PDF
-
-  const getFeedbackClass = (val) => {
-    if (val <= 2) return 'feedback-low';
-    if (val <= 4) return 'feedback-mid';
-    return 'feedback-high';
-  };
-
-  const getFeedbackText = (c, val) => {
-    if (val <= 2) return c.low;
-    if (val <= 4) return c.mid;
-    return c.high;
-  };
+  const fulfilledCount = qualifications.filter(q => q.fulfilled).length;
+  const matchPercentage = Math.round((fulfilledCount / qualifications.length) * 100);
 
   return (
     <main className="main-content">
-      <div className="page-header">
-        <h1 className="page-title">🚦 Go / No-Go Analyse</h1>
-        <p className="page-description">
-          Vurder om dere bør bruke tid på dette anbudet. Flytt sliderne basert på de 10 kriteriene.
-          En gjennomsnittscore på <strong>4 eller mer</strong> anbefales for å gå videre.
-        </p>
+      {/* Tender Header */}
+      <div className="tender-header-card">
+        <span className="tender-badge">Rammeavtale</span>
+        <h1 className="tender-title">Graving og massetransport</h1>
+        <p className="tender-client">Ulstein Kommune</p>
+
+        <div className="tender-meta-grid">
+          <div className="tender-meta-item">
+            <div className="tender-meta-label">Verdi</div>
+            <div className="tender-meta-value">7,5 MNOK</div>
+          </div>
+          <div className="tender-meta-item">
+            <div className="tender-meta-label">Varighet</div>
+            <div className="tender-meta-value">2 år</div>
+          </div>
+          <div className="tender-meta-item">
+            <div className="tender-meta-label">Frist</div>
+            <div className="tender-meta-value">19. jan 2026</div>
+          </div>
+          <div className="tender-meta-item">
+            <div className="tender-meta-label">Tilbydere</div>
+            <div className="tender-meta-value">~5 forventet</div>
+          </div>
+        </div>
       </div>
 
-      <div className="go-no-go-grid">
-        {criteria.map((c) => (
-          <div key={c.id} className="criteria-card">
-            <div className="criteria-header">
-              <span className="criteria-title">{c.title}</span>
-              <span className="criteria-score">{scores[c.id]}/6</span>
+      {/* Qualification Section */}
+      <h2 className="section-title">
+        <svg className="section-title-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        Kvalifikasjonskrav
+      </h2>
+
+      <div className="qualification-grid">
+        {qualifications.map(qual => (
+          <div key={qual.id} className={`qual-item ${qual.fulfilled ? '' : 'warning'}`}>
+            <div className="qual-content">
+              <div className="qual-title">{qual.title}</div>
+              <div className="qual-desc">{qual.desc}</div>
             </div>
-            
-            <input 
-              type="range" 
-              min="1" 
-              max="6" 
-              value={scores[c.id]} 
-              onChange={(e) => handleSliderChange(c.id, e.target.value)}
-              className="range-slider"
-            />
-            
-            <div className={`feedback-text ${getFeedbackClass(scores[c.id])}`}>
-              {getFeedbackText(c, scores[c.id])}
+            <div className={`qual-status ${qual.fulfilled ? 'fulfilled' : 'pending'}`}>
+              {qual.fulfilled ? (
+                <>
+                  <svg className="qual-status-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                  Oppfylt
+                </>
+              ) : (
+                <>
+                  <svg className="qual-status-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  Mangler
+                </>
+              )}
             </div>
           </div>
         ))}
       </div>
 
-      <div className="analysis-footer">
-        <div className="score-summary">
-          <div className="score-item">
-            <h4>Total Score</h4>
-            <div className="score-value">{totalScore} / 60</div>
-          </div>
-          <div className="score-item">
-            <h4>Snittscore</h4>
-            <div className="score-value">{averageScore}</div>
-          </div>
+      {/* Match Summary */}
+      <div className="match-summary">
+        <div className="match-text">
+          <h3>Kvalifisert for dette anbudet</h3>
+          <p>Alle krav er oppfylt. Klar til å levere tilbud.</p>
         </div>
-
-        <div className={`decision-box ${isGo ? 'decision-go' : 'decision-nogo'}`}>
-          {isGo ? (
-            <>
-              <span>🟢</span> ANBEFALING: HOPP (GO)
-            </>
-          ) : (
-            <>
-              <span>🔴</span> ANBEFALING: DROPP (NO-GO)
-            </>
-          )}
-        </div>
-
-        <div style={{display: 'flex', gap: '12px'}}>
-            <button className="btn btn-secondary">Nullstill</button>
-            <button className="btn btn-primary">Lagre analyse</button>
+        <div className="match-score">
+          <div className="match-percentage">{matchPercentage}%</div>
+          <div className="match-action">
+            <button className="btn btn-primary">Start tilbudsarbeid</button>
+          </div>
         </div>
       </div>
     </main>

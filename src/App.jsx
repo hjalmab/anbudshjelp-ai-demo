@@ -1698,7 +1698,7 @@ const GoNoGoPage = () => {
     <main className="main-content">
       {/* Tender Header */}
       <div className="tender-header-card">
-        <div style={{position: 'absolute', top: '20px', right: '20px', fontSize: '48px'}}>🟢</div>
+        <img src="https://drive.google.com/thumbnail?id=11699DKnDLYth-AjehcFhie4mFFZOBbIJ&sz=w200" alt="Go" style={{position: 'absolute', top: '20px', right: '20px', width: '48px', height: '48px'}} />
         <span className="tender-badge">Rammeavtale</span>
         <h1 className="tender-title">Graving og massetransport</h1>
         <p className="tender-client">Ulstein Kommune</p>

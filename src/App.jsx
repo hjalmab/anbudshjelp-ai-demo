@@ -1427,6 +1427,233 @@ const styles = `
     padding: 12px 24px;
     font-size: 14px;
   }
+
+  /* --- TENDER CHECKLIST STYLES --- */
+  .checklist-section {
+    margin-bottom: 28px;
+  }
+
+  .checklist-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .checklist-section-title {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--finndoff-dark);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .checklist-section-progress {
+    font-size: 12px;
+    color: var(--text-secondary);
+    background: var(--bg-primary);
+    padding: 4px 10px;
+    border-radius: 12px;
+  }
+
+  .checklist-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .checklist-item {
+    background: var(--bg-white);
+    border-radius: var(--radius-md);
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+  }
+
+  .checklist-item:hover {
+    border-color: var(--finndoff-teal-lighter);
+  }
+
+  .checklist-item.completed {
+    background: #f0fdf4;
+    border-color: var(--status-green);
+  }
+
+  .checklist-checkbox {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+
+  .checklist-item.completed .checklist-checkbox {
+    background: var(--status-green);
+    border-color: var(--status-green);
+  }
+
+  .checklist-checkbox svg {
+    width: 14px;
+    height: 14px;
+    color: white;
+    opacity: 0;
+  }
+
+  .checklist-item.completed .checklist-checkbox svg {
+    opacity: 1;
+  }
+
+  .checklist-item-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .checklist-item-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--finndoff-dark);
+    margin-bottom: 2px;
+  }
+
+  .checklist-item.completed .checklist-item-title {
+    text-decoration: line-through;
+    color: var(--text-secondary);
+  }
+
+  .checklist-item-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  .checklist-item-badge {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .checklist-item-badge.required {
+    background: rgba(236, 91, 91, 0.1);
+    color: var(--status-red);
+  }
+
+  .checklist-item-badge.optional {
+    background: rgba(157, 167, 173, 0.15);
+    color: var(--text-secondary);
+  }
+
+  .progress-overview {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .progress-bar-container {
+    flex: 1;
+  }
+
+  .progress-bar-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+
+  .progress-bar-label span:first-child {
+    font-weight: 600;
+    color: var(--finndoff-dark);
+  }
+
+  .progress-bar-label span:last-child {
+    color: var(--text-secondary);
+  }
+
+  .progress-bar {
+    height: 10px;
+    background: var(--bg-primary);
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--finndoff-teal) 0%, var(--status-green) 100%);
+    border-radius: 5px;
+    transition: width 0.3s ease;
+  }
+
+  .progress-percentage {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--finndoff-teal);
+    min-width: 80px;
+    text-align: right;
+  }
+
+  .deadline-banner {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border: 1px solid #f59e0b;
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .deadline-banner-icon {
+    font-size: 24px;
+  }
+
+  .deadline-banner-text {
+    flex: 1;
+  }
+
+  .deadline-banner-text strong {
+    color: #92400e;
+    font-weight: 600;
+  }
+
+  .deadline-banner-text span {
+    color: #a16207;
+    font-size: 13px;
+  }
+
+  @media (max-width: 768px) {
+    .progress-overview {
+      flex-direction: column;
+      text-align: center;
+      gap: 16px;
+    }
+
+    .progress-percentage {
+      text-align: center;
+    }
+
+    .deadline-banner {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
 `;
 
 // --- TOP HEADER KOMPONENT ---
@@ -2202,6 +2429,164 @@ const TilbudsbibliotekPage = () => {
   );
 };
 
+// --- AKTIVE KONKURRANSER PAGE (Tender Checklist) ---
+const AktiveKonkurranserPage = () => {
+  const [checklist, setChecklist] = useState({
+    // Dokumentasjon
+    doc1: true,
+    doc2: true,
+    doc3: false,
+    doc4: true,
+    // Tilbudsdokumenter
+    bid1: true,
+    bid2: false,
+    bid3: false,
+    bid4: false,
+    // Kvalitetssikring
+    qa1: false,
+    qa2: false,
+  });
+
+  const toggleItem = (id) => {
+    setChecklist(prev => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const sections = [
+    {
+      id: 'docs',
+      title: '📋 Kvalifikasjonsdokumenter',
+      items: [
+        { id: 'doc1', title: 'Skatteattest', desc: 'Maks 6 mnd gammel', required: true },
+        { id: 'doc2', title: 'Firmaattest', desc: 'Fra Brønnøysundregistrene', required: true },
+        { id: 'doc3', title: 'HMS-egenerklæring', desc: 'Signert av daglig leder', required: true },
+        { id: 'doc4', title: 'Referanseprosjekter', desc: 'Minst 3 relevante prosjekter', required: true },
+      ]
+    },
+    {
+      id: 'bid',
+      title: '📝 Tilbudsdokumenter',
+      items: [
+        { id: 'bid1', title: 'Prisskjema utfylt', desc: 'Alle poster skal prises', required: true },
+        { id: 'bid2', title: 'Tilbudsbrev', desc: 'Bekreftelse av tilbudet', required: true },
+        { id: 'bid3', title: 'Bemanningsplan', desc: 'Nøkkelpersoner og CVer', required: true },
+        { id: 'bid4', title: 'Fremdriftsplan', desc: 'Gantt-diagram eller milepælsplan', required: false },
+      ]
+    },
+    {
+      id: 'qa',
+      title: '✅ Kvalitetssikring',
+      items: [
+        { id: 'qa1', title: 'Intern gjennomgang', desc: 'Kollega har lest gjennom', required: true },
+        { id: 'qa2', title: 'Leder godkjenning', desc: 'Signatur fra ansvarlig leder', required: true },
+      ]
+    }
+  ];
+
+  const totalItems = Object.keys(checklist).length;
+  const completedItems = Object.values(checklist).filter(v => v).length;
+  const progressPercentage = Math.round((completedItems / totalItems) * 100);
+
+  return (
+    <main className="main-content">
+      {/* Tender Header - Same style as Go/No-Go */}
+      <div className="tender-header-card">
+        <span className="tender-badge">Pågående tilbud</span>
+        <h1 className="tender-title">Graving og massetransport</h1>
+        <p className="tender-client">Ulstein Kommune</p>
+
+        <div className="tender-meta-grid">
+          <div className="tender-meta-item">
+            <div className="tender-meta-label">Verdi</div>
+            <div className="tender-meta-value">7,5 MNOK</div>
+          </div>
+          <div className="tender-meta-item">
+            <div className="tender-meta-label">Varighet</div>
+            <div className="tender-meta-value">2 år</div>
+          </div>
+          <div className="tender-meta-item">
+            <div className="tender-meta-label">Frist</div>
+            <div className="tender-meta-value">19. jan 2026</div>
+          </div>
+          <div className="tender-meta-item">
+            <div className="tender-meta-label">Status</div>
+            <div className="tender-meta-value">Under arbeid</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Deadline Banner */}
+      <div className="deadline-banner">
+        <div className="deadline-banner-icon">⏰</div>
+        <div className="deadline-banner-text">
+          <strong>1 dag igjen til innleveringsfrist</strong><br/>
+          <span>Frist: 19. januar 2026 kl. 12:00</span>
+        </div>
+      </div>
+
+      {/* Progress Overview */}
+      <div className="progress-overview">
+        <div className="progress-bar-container">
+          <div className="progress-bar-label">
+            <span>Fremdrift tilbudsarbeid</span>
+            <span>{completedItems} av {totalItems} oppgaver fullført</span>
+          </div>
+          <div className="progress-bar">
+            <div className="progress-bar-fill" style={{ width: `${progressPercentage}%` }}></div>
+          </div>
+        </div>
+        <div className="progress-percentage">{progressPercentage}%</div>
+      </div>
+
+      {/* Checklist Sections */}
+      {sections.map(section => {
+        const sectionItems = section.items;
+        const sectionCompleted = sectionItems.filter(item => checklist[item.id]).length;
+
+        return (
+          <div key={section.id} className="checklist-section">
+            <div className="checklist-section-header">
+              <h3 className="checklist-section-title">{section.title}</h3>
+              <span className="checklist-section-progress">{sectionCompleted}/{sectionItems.length}</span>
+            </div>
+
+            <div className="checklist-items">
+              {sectionItems.map(item => (
+                <div
+                  key={item.id}
+                  className={`checklist-item ${checklist[item.id] ? 'completed' : ''}`}
+                  onClick={() => toggleItem(item.id)}
+                >
+                  <div className="checklist-checkbox">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"/>
+                    </svg>
+                  </div>
+                  <div className="checklist-item-content">
+                    <div className="checklist-item-title">{item.title}</div>
+                    <div className="checklist-item-desc">{item.desc}</div>
+                  </div>
+                  <span className={`checklist-item-badge ${item.required ? 'required' : 'optional'}`}>
+                    {item.required ? 'Påkrevd' : 'Valgfritt'}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+
+      {/* Submit Button */}
+      {progressPercentage === 100 && (
+        <div style={{ textAlign: 'center', marginTop: '32px' }}>
+          <button className="btn btn-primary" style={{ padding: '14px 32px', fontSize: '15px' }}>
+            Send inn tilbud
+          </button>
+        </div>
+      )}
+    </main>
+  );
+};
+
 // Placeholder Component
 const PlaceholderPage = ({ title, description, icon }) => (
   <main className="main-content">
@@ -2235,7 +2620,7 @@ const App = () => {
   const renderPage = () => {
     switch (currentPage) {
       case 'dashboard': return <PlaceholderPage title="Hjem" description="Oversikt over anbud" icon="🏠" />;
-      case 'aktive-konkurranser': return <PlaceholderPage title="Aktive konkurranser" description="Konkurranser i markedet" icon="📋" />;
+      case 'aktive-konkurranser': return <AktiveKonkurranserPage />;
       case 'pagaende-tilbud': return <PlaceholderPage title="Pågående tilbud" description="Tilbud under arbeid" icon="📝" />;
       case 'prosjektstyring': return <PlaceholderPage title="Prosjektstyring" description="Oppgaver og fremdrift" icon="🎯" />;
       case 'dokumentbibliotek': return <DokumentbibliotekPage />;

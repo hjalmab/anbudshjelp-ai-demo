@@ -1052,6 +1052,398 @@ const styles = `
     white-space: nowrap;
   }
 
+  /* --- EXPORT MODAL STYLES --- */
+  .export-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(11, 35, 51, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 20px;
+  }
+
+  .export-modal {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: 0 20px 40px rgba(11, 35, 51, 0.2);
+  }
+
+  .export-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .export-modal-header h3 {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--finndoff-dark);
+    margin: 0;
+  }
+
+  .export-modal-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    padding: 4px;
+    border-radius: var(--radius-sm);
+    transition: all 0.2s;
+  }
+
+  .export-modal-close:hover {
+    background: var(--bg-primary);
+    color: var(--finndoff-dark);
+  }
+
+  .export-modal-description {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .export-modal-fields {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .export-field-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 10px 12px;
+    background: var(--bg-primary);
+    border-radius: var(--radius-md);
+    transition: all 0.2s;
+  }
+
+  .export-field-checkbox:hover {
+    background: var(--finndoff-teal-lightest);
+  }
+
+  .export-field-checkbox input {
+    display: none;
+  }
+
+  .checkbox-custom {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .export-field-checkbox input:checked + .checkbox-custom {
+    background: var(--finndoff-teal);
+    border-color: var(--finndoff-teal);
+  }
+
+  .export-field-checkbox input:checked + .checkbox-custom::after {
+    content: '';
+    width: 6px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    margin-bottom: 2px;
+  }
+
+  .checkbox-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--finndoff-dark);
+  }
+
+  .export-modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+  }
+
+  @media (max-width: 768px) {
+    .export-modal-fields {
+      grid-template-columns: 1fr;
+    }
+
+    .export-modal-actions {
+      flex-direction: column;
+    }
+
+    .export-modal-actions .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  /* --- PRODUCT CARDS STYLES --- */
+  .product-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+  }
+
+  .product-card {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border);
+  }
+
+  .product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--finndoff-teal-lighter);
+  }
+
+  .product-card-image {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+  }
+
+  .product-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .product-card:hover .product-card-image img {
+    transform: scale(1.05);
+  }
+
+  .product-status-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .product-status-badge.available {
+    background: rgba(105, 190, 91, 0.9);
+    color: white;
+  }
+
+  .product-status-badge.service {
+    background: rgba(255, 203, 5, 0.9);
+    color: var(--finndoff-dark);
+  }
+
+  .product-card-content {
+    padding: 16px;
+  }
+
+  .product-card-title {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--finndoff-dark);
+    margin-bottom: 8px;
+  }
+
+  .product-category-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    background: var(--finndoff-teal-lightest);
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--finndoff-teal);
+    margin-bottom: 12px;
+  }
+
+  .product-specs-preview {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 12px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 12px;
+  }
+
+  .product-spec {
+    text-align: center;
+  }
+
+  .product-spec-label {
+    display: block;
+    font-size: 10px;
+    color: var(--text-light);
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .product-spec-value {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--finndoff-dark);
+  }
+
+  .product-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .product-price {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--finndoff-teal);
+  }
+
+  .product-docs-count {
+    font-size: 11px;
+    color: var(--text-secondary);
+  }
+
+  /* Product Detail Modal */
+  .product-detail-modal {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 40px rgba(11, 35, 51, 0.2);
+  }
+
+  .product-detail-content {
+    padding: 0 28px;
+  }
+
+  .product-detail-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    margin-bottom: 20px;
+  }
+
+  .product-detail-info {
+    padding-bottom: 20px;
+  }
+
+  .product-detail-tags {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .product-detail-description {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  .product-detail-price {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--finndoff-teal);
+    margin-bottom: 20px;
+  }
+
+  .product-detail-section {
+    margin-bottom: 20px;
+  }
+
+  .product-detail-section h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--finndoff-dark);
+    margin-bottom: 10px;
+  }
+
+  .product-specs-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background: var(--bg-primary);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+  }
+
+  .product-specs-list li {
+    font-size: 13px;
+    color: var(--text-secondary);
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .product-specs-list li:last-child {
+    border-bottom: none;
+  }
+
+  .product-docs-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .product-doc-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: var(--bg-primary);
+    border-radius: var(--radius-md);
+    font-size: 12px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .product-doc-item:hover {
+    background: var(--finndoff-teal-lightest);
+    color: var(--finndoff-teal);
+  }
+
+  @media (max-width: 768px) {
+    .product-cards-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .product-detail-modal {
+      margin: 10px;
+      max-height: 85vh;
+    }
+
+    .product-detail-image {
+      height: 180px;
+    }
+
+    .product-detail-content {
+      padding: 0 20px;
+    }
+  }
+
   /* --- SIDEBAR TOGGLE & MOBILE STYLES --- */
   .menu-toggle-btn {
     display: none;
@@ -2203,6 +2595,12 @@ const Sidebar = ({ currentPage, onNavigate, isOpen, onClose }) => {
             </svg>
             Nøkkelressurser
           </button>
+          <button className={`nav-item ${currentPage === 'produkter-tjenester' ? 'active' : ''}`} onClick={() => onNavigate('produkter-tjenester')}>
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+            </svg>
+            Produkter & Tjenester
+          </button>
         </div>
       </nav>
     </aside>
@@ -2441,7 +2839,8 @@ const DokumentbibliotekPage = () => {
       { id: 3, name: 'HMS-erklæring', icon: '❌', status: 'missing', description: 'Påkrevd for de fleste anbud', uploadText: "Signer og last opp", category: 'required' },
       { id: 4, name: 'MVA-attest', icon: '📄', status: 'valid', expiryDate: '01. mar 2026', description: 'Maks 6 mnd gammel', category: 'required' },
       { id: 5, name: 'StartBANK', icon: '⚠️', status: 'expiring', expiryDate: '07. feb 2026', description: 'Maks 3 mnd gammel', category: 'required' },
-      { id: 6, name: 'ESPD (Egenerklæring)', icon: '📄', status: 'valid', expiryDate: '10. mar 2026', description: 'Standard skjema', category: 'required' }
+      { id: 6, name: 'ESPD (Egenerklæring)', icon: '📄', status: 'valid', expiryDate: '10. mar 2026', description: 'Standard skjema', category: 'required' },
+      { id: 10, name: 'Tekniske og faglige kvalifikasjoner', icon: '📄', status: 'valid', expiryDate: '01. jan 2027', description: 'Dokumentasjon av teknisk kompetanse', category: 'required' }
     ],
     certifications: [
       { id: 7, name: 'ISO 9001:2015', icon: '🎓', status: 'valid', expiryDate: '15. sep 2026', description: 'Kvalitetsstyring', category: 'certifications' },
@@ -2608,6 +3007,274 @@ const NokkelressurserPage = () => {
   );
 };
 
+// --- PRODUKTER & TJENESTER PAGE ---
+const ProdukterTjenesterPage = () => {
+  const [categoryFilter, setCategoryFilter] = useState('all');
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  const [products, setProducts] = useState([
+    {
+      id: "1",
+      name: "Volvo EC220E Gravemaskin",
+      category: "Gravemaskin",
+      status: "Tilgjengelig",
+      year: "2021",
+      hours: "3 450 timer",
+      weight: "22 tonn",
+      price: "1 850 000 kr",
+      description: "Beltegående gravemaskin med lang rekkevidde. Godt vedlikeholdt med full servicehistorikk.",
+      specs: ["Motor: Volvo D6J", "Effekt: 129 kW", "Graverekkevidde: 10,2 m", "Grabbekapasitet: 1,3 m³"],
+      documents: ["Brukermanual", "Servicelogg", "CE-sertifikat"],
+      imageUrl: "https://images.unsplash.com/photo-1580901368919-7738efb0f87e?q=80&w=2672&auto=format&fit=crop"
+    },
+    {
+      id: "2",
+      name: "Caterpillar 950M Hjullaster",
+      category: "Hjullaster",
+      status: "Tilgjengelig",
+      year: "2020",
+      hours: "4 200 timer",
+      weight: "18,5 tonn",
+      price: "1 450 000 kr",
+      description: "Kraftig hjullaster ideell for lasting og transport av masser. Utstyrt med veieskål.",
+      specs: ["Motor: Cat C7.1", "Effekt: 169 kW", "Skuffekapasitet: 3,5 m³", "Løftekapasitet: 6,2 tonn"],
+      documents: ["Brukermanual", "Veieskålkalibrering", "Servicelogg"],
+      imageUrl: "https://images.unsplash.com/photo-1629014633233-1ad9a5be2c65?q=80&w=2670&auto=format&fit=crop"
+    },
+    {
+      id: "3",
+      name: "Volvo A30G Dumper",
+      category: "Dumper",
+      status: "Under service",
+      year: "2019",
+      hours: "5 800 timer",
+      weight: "28 tonn",
+      price: "1 200 000 kr",
+      description: "6x6 leddumper med god bæreevne i vanskelig terreng. Planlagt ferdig fra service 15. feb.",
+      specs: ["Motor: Volvo D11K", "Effekt: 265 kW", "Lastekapasitet: 28 tonn", "Kasselast: 17,5 m³"],
+      documents: ["Brukermanual", "Servicelogg"],
+      imageUrl: "https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?q=80&w=2574&auto=format&fit=crop"
+    },
+    {
+      id: "4",
+      name: "Kubota KX080-4 Minigraver",
+      category: "Minigraver",
+      status: "Tilgjengelig",
+      year: "2022",
+      hours: "1 200 timer",
+      weight: "8,5 tonn",
+      price: "890 000 kr",
+      description: "Kompakt og allsidig minigraver. Perfekt for trange arbeidsområder og mindre gravearbeider.",
+      specs: ["Motor: Kubota V3307", "Effekt: 48 kW", "Graverekkevidde: 6,8 m", "Grabbekapasitet: 0,28 m³"],
+      documents: ["Brukermanual", "CE-sertifikat", "Servicelogg"],
+      imageUrl: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2670&auto=format&fit=crop"
+    },
+    {
+      id: "5",
+      name: "Dynapac CA2500 Valse",
+      category: "Valse",
+      status: "Tilgjengelig",
+      year: "2020",
+      hours: "2 100 timer",
+      weight: "11 tonn",
+      price: "650 000 kr",
+      description: "Vibrerande enkelttrommelvals for komprimering av jord og asfalt. Operatørvennlig og effektiv.",
+      specs: ["Motor: Cummins QSB4.5", "Effekt: 99 kW", "Trommelbredde: 2,13 m", "Statisk lineær last: 32 kg/cm"],
+      documents: ["Brukermanual", "Servicelogg", "Kalibreringsattest"],
+      imageUrl: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2670&auto=format&fit=crop"
+    },
+    {
+      id: "6",
+      name: "Atlas Copco XAS 186 Kompressor",
+      category: "Utstyr",
+      status: "Tilgjengelig",
+      year: "2021",
+      hours: "1 800 timer",
+      weight: "1,2 tonn",
+      price: "185 000 kr",
+      description: "Mobil skruekompressor for bruk på anleggsplasser. Leverer ren og tørr trykkluft.",
+      specs: ["Motor: Deutz TD2.9", "Effekt: 49 kW", "Luftmengde: 10,4 m³/min", "Trykk: 7-14 bar"],
+      documents: ["Brukermanual", "Trykktest-sertifikat"],
+      imageUrl: "https://images.unsplash.com/photo-1590644365607-1c5a2e97a39e?q=80&w=2670&auto=format&fit=crop"
+    }
+  ]);
+
+  // Get unique categories for filter
+  const categories = [...new Set(products.map(p => p.category))].sort();
+
+  // Filter logic
+  const filteredProducts = products.filter(p => {
+    return categoryFilter === 'all' || p.category === categoryFilter;
+  });
+
+  const availableCount = products.filter(p => p.status === 'Tilgjengelig').length;
+
+  return (
+    <main className="main-content">
+      <div className="page-header">
+        <h1 className="page-title">🔧 Produkter & Tjenester</h1>
+        <p className="page-description">
+          Oversikt over firmaets maskiner og utstyr. Last opp produktbilder, brukermanualer og tekniske spesifikasjoner.
+        </p>
+      </div>
+
+      {/* Status banner */}
+      <div className="readiness-banner readiness-high">
+        <div className="readiness-content">
+          <div className="readiness-icon-box">
+            <div className="readiness-icon">🚜</div>
+          </div>
+          <div className="readiness-text">
+            <h2>Maskinpark oversikt</h2>
+            <p>{availableCount} av {products.length} maskiner er tilgjengelige for salg eller utleie.</p>
+          </div>
+        </div>
+        <div className="readiness-score">
+          <div className="score-circle">
+            <svg viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="8"/>
+              <circle cx="50" cy="50" r="45" fill="none" stroke="white" strokeWidth="8" strokeDasharray={`${(availableCount / products.length) * 283} 283`} strokeLinecap="round" transform="rotate(-90 50 50)"/>
+            </svg>
+            <div className="score-text">
+              <div className="score-number">{availableCount}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Filters */}
+      <div className="filter-row">
+        <div className="doc-filter-tabs">
+          <button className={`filter-tab ${categoryFilter === 'all' ? 'active' : ''}`} onClick={() => setCategoryFilter('all')}>
+            Alle <span className="tab-badge">{products.length}</span>
+          </button>
+          {categories.map(cat => (
+            <button key={cat} className={`filter-tab ${categoryFilter === cat ? 'active' : ''}`} onClick={() => setCategoryFilter(cat)}>
+              {cat} <span className="tab-badge">{products.filter(p => p.category === cat).length}</span>
+            </button>
+          ))}
+        </div>
+        <button className="btn btn-primary">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{width: '16px', height: '16px'}}>
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
+          </svg>
+          Legg til produkt
+        </button>
+      </div>
+
+      {/* Product Grid */}
+      <div className="product-cards-grid">
+        {filteredProducts.map(product => (
+          <div key={product.id} className="product-card" onClick={() => setSelectedProduct(product)}>
+            <div className="product-card-image">
+              <img src={product.imageUrl} alt={product.name} />
+              <span className={`product-status-badge ${product.status === 'Tilgjengelig' ? 'available' : 'service'}`}>
+                {product.status}
+              </span>
+            </div>
+            <div className="product-card-content">
+              <h4 className="product-card-title">{product.name}</h4>
+              <span className="product-category-badge">{product.category}</span>
+
+              <div className="product-specs-preview">
+                <div className="product-spec">
+                  <span className="product-spec-label">Årsmodell</span>
+                  <span className="product-spec-value">{product.year}</span>
+                </div>
+                <div className="product-spec">
+                  <span className="product-spec-label">Timer</span>
+                  <span className="product-spec-value">{product.hours}</span>
+                </div>
+                <div className="product-spec">
+                  <span className="product-spec-label">Vekt</span>
+                  <span className="product-spec-value">{product.weight}</span>
+                </div>
+              </div>
+
+              <div className="product-card-footer">
+                <span className="product-price">{product.price}</span>
+                <span className="product-docs-count">📄 {product.documents.length} dokumenter</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {filteredProducts.length === 0 && (
+        <div style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--text-secondary)' }}>
+          <div style={{ fontSize: '48px', marginBottom: '16px' }}>🔍</div>
+          <p>Ingen produkter matcher filteret.</p>
+        </div>
+      )}
+
+      {/* Product Detail Modal */}
+      {selectedProduct && (
+        <div className="export-modal-overlay" onClick={() => setSelectedProduct(null)}>
+          <div className="product-detail-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="export-modal-header">
+              <h3>{selectedProduct.name}</h3>
+              <button className="export-modal-close" onClick={() => setSelectedProduct(null)}>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{width: '20px', height: '20px'}}>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="product-detail-content">
+              <img src={selectedProduct.imageUrl} alt={selectedProduct.name} className="product-detail-image" />
+
+              <div className="product-detail-info">
+                <div className="product-detail-tags">
+                  <span className="product-category-badge">{selectedProduct.category}</span>
+                  <span className={`product-status-badge ${selectedProduct.status === 'Tilgjengelig' ? 'available' : 'service'}`}>
+                    {selectedProduct.status}
+                  </span>
+                </div>
+
+                <p className="product-detail-description">{selectedProduct.description}</p>
+
+                <div className="product-detail-price">{selectedProduct.price}</div>
+
+                <div className="product-detail-section">
+                  <h4>Tekniske spesifikasjoner</h4>
+                  <ul className="product-specs-list">
+                    {selectedProduct.specs.map((spec, i) => (
+                      <li key={i}>{spec}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="product-detail-section">
+                  <h4>Dokumenter</h4>
+                  <div className="product-docs-list">
+                    {selectedProduct.documents.map((doc, i) => (
+                      <div key={i} className="product-doc-item">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{width: '16px', height: '16px'}}>
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        {doc}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="export-modal-actions">
+              <button className="btn btn-secondary" onClick={() => setSelectedProduct(null)}>
+                Lukk
+              </button>
+              <button className="btn btn-primary">
+                Kontakt selger
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </main>
+  );
+};
+
 // --- PROJECT CARD COMPONENT ---
 const ProjectCard = ({ project, onToggleReference }) => {
   return (
@@ -2677,6 +3344,15 @@ const TilbudsbibliotekPage = () => {
   const [statusFilter, setStatusFilter] = useState('all');
   const [machineFilter, setMachineFilter] = useState('all');
   const [showReferencesOnly, setShowReferencesOnly] = useState(false);
+  const [showExportModal, setShowExportModal] = useState(false);
+  const [exportFields, setExportFields] = useState({
+    client: true,
+    value: true,
+    period: true,
+    location: true,
+    category: true,
+    machineType: true
+  });
 
   const [projects, setProjects] = useState([
     {
@@ -2818,6 +3494,21 @@ const TilbudsbibliotekPage = () => {
   const referenceCount = projects.filter(p => p.isReference).length;
   const referenceProjects = projects.filter(p => p.isReference);
 
+  // Field labels for export modal
+  const fieldLabels = {
+    client: 'Oppdragsgiver',
+    value: 'Verdi',
+    period: 'Periode',
+    location: 'Sted',
+    category: 'Kategori',
+    machineType: 'Maskintype'
+  };
+
+  // Toggle export field
+  const toggleExportField = (field) => {
+    setExportFields(prev => ({ ...prev, [field]: !prev[field] }));
+  };
+
   // Export PDF function
   const exportToPDF = () => {
     const printWindow = window.open('', '_blank');
@@ -2843,12 +3534,12 @@ const TilbudsbibliotekPage = () => {
           ${referenceProjects.map(p => `
             <div class="project">
               <h2>${p.title}</h2>
-              <p><strong>Oppdragsgiver:</strong> ${p.client}</p>
-              <p><strong>Verdi:</strong> <span class="value">${p.value}</span></p>
-              <p><strong>Periode:</strong> ${p.period}</p>
-              <p><strong>Sted:</strong> ${p.location}</p>
-              <p><strong>Kategori:</strong> ${p.category}</p>
-              <span class="machine-tag">${p.machineType}</span>
+              ${exportFields.client ? `<p><strong>Oppdragsgiver:</strong> ${p.client}</p>` : ''}
+              ${exportFields.value ? `<p><strong>Verdi:</strong> <span class="value">${p.value}</span></p>` : ''}
+              ${exportFields.period ? `<p><strong>Periode:</strong> ${p.period}</p>` : ''}
+              ${exportFields.location ? `<p><strong>Sted:</strong> ${p.location}</p>` : ''}
+              ${exportFields.category ? `<p><strong>Kategori:</strong> ${p.category}</p>` : ''}
+              ${exportFields.machineType ? `<span class="machine-tag">${p.machineType}</span>` : ''}
             </div>
           `).join('')}
         </body>
@@ -2856,6 +3547,7 @@ const TilbudsbibliotekPage = () => {
     `);
     printWindow.document.close();
     printWindow.print();
+    setShowExportModal(false);
   };
 
   return (
@@ -2869,17 +3561,20 @@ const TilbudsbibliotekPage = () => {
 
       <div className="filter-row">
         <div className="doc-filter-tabs">
-          <button className={`filter-tab ${statusFilter === 'all' ? 'active' : ''}`} onClick={() => setStatusFilter('all')}>
+          <button className={`filter-tab ${statusFilter === 'all' && !showReferencesOnly ? 'active' : ''}`} onClick={() => { setStatusFilter('all'); setShowReferencesOnly(false); }}>
             Alle <span className="tab-badge">{projects.length}</span>
           </button>
-          <button className={`filter-tab ${statusFilter === 'Vunnet' ? 'active' : ''}`} onClick={() => setStatusFilter('Vunnet')}>
+          <button className={`filter-tab ${statusFilter === 'Vunnet' && !showReferencesOnly ? 'active' : ''}`} onClick={() => { setStatusFilter('Vunnet'); setShowReferencesOnly(false); }}>
             Vunnet <span className="tab-badge">{projects.filter(p => p.status === 'Vunnet').length}</span>
           </button>
-          <button className={`filter-tab ${statusFilter === 'Pågående' ? 'active' : ''}`} onClick={() => setStatusFilter('Pågående')}>
+          <button className={`filter-tab ${statusFilter === 'Pågående' && !showReferencesOnly ? 'active' : ''}`} onClick={() => { setStatusFilter('Pågående'); setShowReferencesOnly(false); }}>
             Pågående <span className="tab-badge">{projects.filter(p => p.status === 'Pågående').length}</span>
           </button>
-          <button className={`filter-tab ${statusFilter === 'Tapt' ? 'active' : ''}`} onClick={() => setStatusFilter('Tapt')}>
+          <button className={`filter-tab ${statusFilter === 'Tapt' && !showReferencesOnly ? 'active' : ''}`} onClick={() => { setStatusFilter('Tapt'); setShowReferencesOnly(false); }}>
             Tapt <span className="tab-badge">{projects.filter(p => p.status === 'Tapt').length}</span>
+          </button>
+          <button className={`filter-tab ${showReferencesOnly ? 'active' : ''}`} onClick={() => { setShowReferencesOnly(true); setStatusFilter('all'); }}>
+            ⭐ Referanseprosjekter <span className="tab-badge">{referenceCount}</span>
           </button>
         </div>
 
@@ -2895,21 +3590,11 @@ const TilbudsbibliotekPage = () => {
             ))}
           </select>
 
-          <button
-            className={`reference-toggle ${showReferencesOnly ? 'active' : ''}`}
-            onClick={() => setShowReferencesOnly(!showReferencesOnly)}
-          >
-            <svg viewBox="0 0 24 24" fill={showReferencesOnly ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-            </svg>
-            Kun referanseprosjekter ({referenceCount})
-          </button>
-
-          <button className="btn btn-primary export-pdf-btn" onClick={exportToPDF}>
+          <button className="btn btn-primary export-pdf-btn" onClick={() => setShowExportModal(true)}>
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{width: '16px', height: '16px'}}>
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
-            Eksporter PDF
+            Eksporter oppsummering av valgte prosjekter
           </button>
         </div>
       </div>
@@ -2928,6 +3613,49 @@ const TilbudsbibliotekPage = () => {
         <div style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--text-secondary)' }}>
           <div style={{ fontSize: '48px', marginBottom: '16px' }}>📭</div>
           <p>Ingen prosjekter matcher filteret.</p>
+        </div>
+      )}
+
+      {/* Export Modal */}
+      {showExportModal && (
+        <div className="export-modal-overlay" onClick={() => setShowExportModal(false)}>
+          <div className="export-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="export-modal-header">
+              <h3>Velg felter for eksport</h3>
+              <button className="export-modal-close" onClick={() => setShowExportModal(false)}>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{width: '20px', height: '20px'}}>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <p className="export-modal-description">
+              Velg hvilke datapunkter som skal inkluderes i oppsummeringen av {referenceCount} referanseprosjekter.
+            </p>
+            <div className="export-modal-fields">
+              {Object.entries(fieldLabels).map(([key, label]) => (
+                <label key={key} className="export-field-checkbox">
+                  <input
+                    type="checkbox"
+                    checked={exportFields[key]}
+                    onChange={() => toggleExportField(key)}
+                  />
+                  <span className="checkbox-custom"></span>
+                  <span className="checkbox-label">{label}</span>
+                </label>
+              ))}
+            </div>
+            <div className="export-modal-actions">
+              <button className="btn btn-secondary" onClick={() => setShowExportModal(false)}>
+                Avbryt
+              </button>
+              <button className="btn btn-primary" onClick={exportToPDF}>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{width: '16px', height: '16px'}}>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                Eksporter PDF
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </main>
@@ -3295,6 +4023,7 @@ const App = () => {
       case 'prosjektstyring': return <PlaceholderPage title="Prosjektstyring" description="Oppgaver og fremdrift" icon="🎯" />;
       case 'dokumentbibliotek': return <DokumentbibliotekPage />;
       case 'nokkelressurser': return <NokkelressurserPage />;
+      case 'produkter-tjenester': return <ProdukterTjenesterPage />;
       case 'tilbudsbibliotek': return <TilbudsbibliotekPage />;
       case 'go-no-go': return <GoNoGoPage />;
       default: return <DokumentbibliotekPage />;

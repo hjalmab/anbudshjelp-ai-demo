@@ -1653,6 +1653,360 @@ const styles = `
       flex-direction: column;
       text-align: center;
     }
+
+    .dashboard-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .kpi-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .kpi-card {
+      padding: 16px;
+    }
+
+    .kpi-value {
+      font-size: 24px;
+    }
+
+    .chart-container {
+      height: 200px;
+    }
+
+    .win-rate-display {
+      flex-direction: column;
+      gap: 24px;
+    }
+  }
+
+  /* --- DASHBOARD STYLES --- */
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+
+  .dashboard-card {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .dashboard-card.full-width {
+    grid-column: span 2;
+  }
+
+  @media (max-width: 768px) {
+    .dashboard-grid {
+      grid-template-columns: 1fr;
+    }
+    .dashboard-card.full-width {
+      grid-column: span 1;
+    }
+    .kpi-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .kpi-card {
+      padding: 16px;
+    }
+    .kpi-value {
+      font-size: 22px;
+    }
+    .kpi-icon {
+      width: 32px;
+      height: 32px;
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+    .win-rate-display {
+      flex-direction: column;
+      gap: 20px;
+    }
+    .chart-container {
+      height: 180px;
+    }
+  }
+
+  .dashboard-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .dashboard-card-title {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--finndoff-dark);
+  }
+
+  .dashboard-card-badge {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+  }
+
+  .badge-positive {
+    background: rgba(105, 190, 91, 0.1);
+    color: var(--status-green);
+  }
+
+  .badge-negative {
+    background: rgba(236, 91, 91, 0.1);
+    color: var(--status-red);
+  }
+
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .kpi-card {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+  }
+
+  .kpi-card.kpi-revenue::before { background: var(--finndoff-teal); }
+  .kpi-card.kpi-pipeline::before { background: #8b5cf6; }
+  .kpi-card.kpi-winrate::before { background: var(--status-green); }
+  .kpi-card.kpi-active::before { background: var(--status-yellow); }
+
+  .kpi-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+    font-size: 20px;
+  }
+
+  .kpi-card.kpi-revenue .kpi-icon { background: rgba(0, 132, 137, 0.1); }
+  .kpi-card.kpi-pipeline .kpi-icon { background: rgba(139, 92, 246, 0.1); }
+  .kpi-card.kpi-winrate .kpi-icon { background: rgba(105, 190, 91, 0.1); }
+  .kpi-card.kpi-active .kpi-icon { background: rgba(255, 203, 5, 0.15); }
+
+  .kpi-value {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--finndoff-dark);
+    margin-bottom: 4px;
+  }
+
+  .kpi-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .kpi-change {
+    font-size: 11px;
+    margin-top: 8px;
+    font-weight: 600;
+  }
+
+  .kpi-change.positive { color: var(--status-green); }
+  .kpi-change.negative { color: var(--status-red); }
+
+  .chart-container {
+    height: 240px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    padding: 20px 0;
+    gap: 8px;
+  }
+
+  .chart-bar-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+  }
+
+  .chart-bar {
+    width: 100%;
+    max-width: 40px;
+    border-radius: 4px 4px 0 0;
+    transition: height 0.3s ease;
+  }
+
+  .chart-bar.revenue { background: linear-gradient(180deg, var(--finndoff-teal) 0%, var(--finndoff-teal-light) 100%); }
+
+  .chart-label {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 8px;
+    text-align: center;
+  }
+
+  .win-rate-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    padding: 20px;
+  }
+
+  .win-rate-circle {
+    position: relative;
+    width: 140px;
+    height: 140px;
+  }
+
+  .win-rate-circle svg {
+    transform: rotate(-90deg);
+    width: 100%;
+    height: 100%;
+  }
+
+  .win-rate-circle-bg {
+    fill: none;
+    stroke: var(--bg-primary);
+    stroke-width: 12;
+  }
+
+  .win-rate-circle-fill {
+    fill: none;
+    stroke: var(--status-green);
+    stroke-width: 12;
+    stroke-linecap: round;
+  }
+
+  .win-rate-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  .win-rate-value {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--finndoff-dark);
+  }
+
+  .win-rate-label {
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+  }
+
+  .win-rate-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .win-rate-stat {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .win-rate-stat-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+
+  .win-rate-stat-dot.won { background: var(--status-green); }
+  .win-rate-stat-dot.lost { background: var(--status-red); }
+  .win-rate-stat-dot.pending { background: var(--status-yellow); }
+
+  .win-rate-stat-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .win-rate-stat-value {
+    font-weight: 600;
+    color: var(--finndoff-dark);
+    font-size: 14px;
+  }
+
+  .win-rate-stat-label {
+    font-size: 11px;
+    color: var(--text-secondary);
+  }
+
+  .recent-tenders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .recent-tender-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px;
+    background: var(--bg-primary);
+    border-radius: var(--radius-md);
+  }
+
+  .recent-tender-status {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .recent-tender-status.won { background: var(--status-green); }
+  .recent-tender-status.lost { background: var(--status-red); }
+  .recent-tender-status.pending { background: var(--status-yellow); }
+
+  .recent-tender-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .recent-tender-title {
+    font-weight: 500;
+    color: var(--finndoff-dark);
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .recent-tender-client {
+    font-size: 11px;
+    color: var(--text-secondary);
+  }
+
+  .recent-tender-value {
+    font-weight: 600;
+    color: var(--finndoff-dark);
+    font-size: 13px;
+    white-space: nowrap;
   }
 `;
 
@@ -2587,6 +2941,171 @@ const AktiveKonkurranserPage = () => {
   );
 };
 
+// Dashboard Component for CFO
+const DashboardPage = () => {
+  // Mock data for the dashboard
+  const kpis = [
+    { id: 'revenue', label: 'Omsetning 2025', value: '24.8M', change: '+12%', positive: true, icon: '💰' },
+    { id: 'pipeline', label: 'Pipeline verdi', value: '47.2M', change: '+8%', positive: true, icon: '📊' },
+    { id: 'winrate', label: 'Hitrate', value: '68%', change: '+5%', positive: true, icon: '🎯' },
+    { id: 'active', label: 'Aktive tilbud', value: '12', change: '3 nye', positive: true, icon: '📋' },
+  ];
+
+  const monthlyRevenue = [
+    { month: 'Jan', value: 1.8 },
+    { month: 'Feb', value: 2.4 },
+    { month: 'Mar', value: 3.1 },
+    { month: 'Apr', value: 2.2 },
+    { month: 'Mai', value: 2.9 },
+    { month: 'Jun', value: 3.5 },
+    { month: 'Jul', value: 2.1 },
+    { month: 'Aug', value: 1.9 },
+    { month: 'Sep', value: 2.7 },
+    { month: 'Okt', value: 3.2 },
+    { month: 'Nov', value: 0 },
+    { month: 'Des', value: 0 },
+  ];
+
+  const maxRevenue = Math.max(...monthlyRevenue.map(m => m.value));
+
+  const recentTenders = [
+    { title: 'Graving og massetransport', client: 'Ulstein Kommune', value: '4.2M', status: 'won' },
+    { title: 'VA-anlegg Sentrum', client: 'Bergen Kommune', value: '8.5M', status: 'pending' },
+    { title: 'Vegbygging E39', client: 'Statens vegvesen', value: '12.1M', status: 'pending' },
+    { title: 'Betongarbeid Skole', client: 'Ålesund Kommune', value: '3.8M', status: 'won' },
+    { title: 'Tunnelrehabilitering', client: 'Møre og Romsdal FK', value: '6.7M', status: 'lost' },
+  ];
+
+  const winStats = { won: 8, lost: 4, pending: 3 };
+  const totalDecided = winStats.won + winStats.lost;
+  const winRate = Math.round((winStats.won / totalDecided) * 100);
+  const circumference = 2 * Math.PI * 54;
+  const strokeDashoffset = circumference - (winRate / 100) * circumference;
+
+  return (
+    <main className="main-content">
+      <div className="page-header">
+        <h1 className="page-title">
+          <span style={{ marginRight: '12px' }}>🏠</span>
+          Hjem
+        </h1>
+        <p className="page-description">Økonomisk oversikt og anbudsstatistikk</p>
+      </div>
+
+      {/* KPI Grid */}
+      <div className="kpi-grid">
+        {kpis.map(kpi => (
+          <div key={kpi.id} className={`kpi-card kpi-${kpi.id}`}>
+            <div className="kpi-icon">{kpi.icon}</div>
+            <div className="kpi-value">{kpi.value}</div>
+            <div className="kpi-label">{kpi.label}</div>
+            <div className={`kpi-change ${kpi.positive ? 'positive' : 'negative'}`}>
+              {kpi.change}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Charts Grid */}
+      <div className="dashboard-grid">
+        {/* Revenue Chart */}
+        <div className="dashboard-card">
+          <div className="dashboard-card-header">
+            <h3 className="dashboard-card-title">Omsetning per måned (MNOK)</h3>
+            <span className="dashboard-card-badge badge-positive">+12% YTD</span>
+          </div>
+          <div className="chart-container">
+            {monthlyRevenue.map((m, i) => (
+              <div key={i} className="chart-bar-group">
+                <div
+                  className="chart-bar revenue"
+                  style={{
+                    height: m.value > 0 ? `${(m.value / maxRevenue) * 180}px` : '0px',
+                    opacity: m.value > 0 ? 1 : 0.3,
+                    background: m.value > 0
+                      ? 'linear-gradient(180deg, var(--finndoff-teal) 0%, var(--finndoff-teal-light) 100%)'
+                      : 'var(--border)'
+                  }}
+                />
+                <span className="chart-label">{m.month}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Win Rate */}
+        <div className="dashboard-card">
+          <div className="dashboard-card-header">
+            <h3 className="dashboard-card-title">Hitrate 2025</h3>
+            <span className="dashboard-card-badge badge-positive">Over mål</span>
+          </div>
+          <div className="win-rate-display">
+            <div className="win-rate-circle">
+              <svg viewBox="0 0 120 120">
+                <circle className="win-rate-circle-bg" cx="60" cy="60" r="54" />
+                <circle
+                  className="win-rate-circle-fill"
+                  cx="60"
+                  cy="60"
+                  r="54"
+                  strokeDasharray={circumference}
+                  strokeDashoffset={strokeDashoffset}
+                />
+              </svg>
+              <div className="win-rate-text">
+                <div className="win-rate-value">{winRate}%</div>
+                <div className="win-rate-label">Hitrate</div>
+              </div>
+            </div>
+            <div className="win-rate-stats">
+              <div className="win-rate-stat">
+                <div className="win-rate-stat-dot won"></div>
+                <div className="win-rate-stat-info">
+                  <span className="win-rate-stat-value">{winStats.won} vunnet</span>
+                  <span className="win-rate-stat-label">Kontrakter</span>
+                </div>
+              </div>
+              <div className="win-rate-stat">
+                <div className="win-rate-stat-dot lost"></div>
+                <div className="win-rate-stat-info">
+                  <span className="win-rate-stat-value">{winStats.lost} tapt</span>
+                  <span className="win-rate-stat-label">Kontrakter</span>
+                </div>
+              </div>
+              <div className="win-rate-stat">
+                <div className="win-rate-stat-dot pending"></div>
+                <div className="win-rate-stat-info">
+                  <span className="win-rate-stat-value">{winStats.pending} pågående</span>
+                  <span className="win-rate-stat-label">Tilbud</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Recent Tenders */}
+        <div className="dashboard-card full-width">
+          <div className="dashboard-card-header">
+            <h3 className="dashboard-card-title">Siste anbud</h3>
+          </div>
+          <div className="recent-tenders-list">
+            {recentTenders.map((tender, i) => (
+              <div key={i} className="recent-tender-item">
+                <div className={`recent-tender-status ${tender.status}`}></div>
+                <div className="recent-tender-info">
+                  <div className="recent-tender-title">{tender.title}</div>
+                  <div className="recent-tender-client">{tender.client}</div>
+                </div>
+                <div className="recent-tender-value">{tender.value}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </main>
+  );
+};
+
 // Placeholder Component
 const PlaceholderPage = ({ title, description, icon }) => (
   <main className="main-content">
@@ -2619,7 +3138,7 @@ const App = () => {
 
   const renderPage = () => {
     switch (currentPage) {
-      case 'dashboard': return <PlaceholderPage title="Hjem" description="Oversikt over anbud" icon="🏠" />;
+      case 'dashboard': return <DashboardPage />;
       case 'aktive-konkurranser': return <AktiveKonkurranserPage />;
       case 'pagaende-tilbud': return <PlaceholderPage title="Pågående tilbud" description="Tilbud under arbeid" icon="📝" />;
       case 'prosjektstyring': return <PlaceholderPage title="Prosjektstyring" description="Oppgaver og fremdrift" icon="🎯" />;

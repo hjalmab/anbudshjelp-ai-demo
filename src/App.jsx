@@ -919,6 +919,13 @@ const styles = `
     color: var(--text-secondary);
   }
 
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
   .project-category-badge {
     display: inline-block;
     padding: 3px 10px;
@@ -927,7 +934,16 @@ const styles = `
     font-size: 11px;
     font-weight: 600;
     color: var(--text-secondary);
-    margin-bottom: 16px;
+  }
+
+  .project-machine-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    background: var(--finndoff-teal-lightest);
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--finndoff-teal);
   }
 
   .project-metrics {
@@ -993,9 +1009,47 @@ const styles = `
   .filter-row {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 16px;
     margin-bottom: 24px;
     flex-wrap: wrap;
+  }
+
+  .filter-row-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .machine-filter-select {
+    padding: 8px 32px 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--bg-white);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236D7B85' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    transition: all 0.2s;
+  }
+
+  .machine-filter-select:hover {
+    border-color: var(--finndoff-teal);
+  }
+
+  .machine-filter-select:focus {
+    outline: none;
+    border-color: var(--finndoff-teal);
+    box-shadow: 0 0 0 3px var(--finndoff-teal-lightest);
+  }
+
+  .export-pdf-btn {
+    white-space: nowrap;
   }
 
   /* --- SIDEBAR TOGGLE & MOBILE STYLES --- */
@@ -1143,6 +1197,25 @@ const styles = `
     .filter-row {
       flex-direction: column;
       align-items: stretch;
+    }
+
+    .filter-row-right {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .machine-filter-select {
+      width: 100%;
+    }
+
+    .reference-toggle {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .export-pdf-btn {
+      width: 100%;
+      justify-content: center;
     }
 
     .page-header {
@@ -2566,7 +2639,10 @@ const ProjectCard = ({ project, onToggleReference }) => {
           <p className="project-card-client">{project.client}</p>
         </div>
 
-        <span className="project-category-badge">{project.category}</span>
+        <div className="project-tags">
+          <span className="project-category-badge">{project.category}</span>
+          <span className="project-machine-badge">{project.machineType}</span>
+        </div>
 
         <div className="project-metrics">
           <div className="project-metric">
@@ -2599,6 +2675,7 @@ const ProjectCard = ({ project, onToggleReference }) => {
 // --- PROSJEKTBIBLIOTEK PAGE ---
 const TilbudsbibliotekPage = () => {
   const [statusFilter, setStatusFilter] = useState('all');
+  const [machineFilter, setMachineFilter] = useState('all');
   const [showReferencesOnly, setShowReferencesOnly] = useState(false);
 
   const [projects, setProjects] = useState([
@@ -2611,6 +2688,7 @@ const TilbudsbibliotekPage = () => {
       location: "Harstad",
       status: "Vunnet",
       category: "Vei/VA",
+      machineType: "Gravemaskin",
       isReference: true,
       imageUrl: "https://drive.google.com/thumbnail?id=1w_m40djhgnC0hG958mvLX6AdoAjvfl4x&sz=w800"
     },
@@ -2623,6 +2701,7 @@ const TilbudsbibliotekPage = () => {
       location: "Sørreisa",
       status: "Vunnet",
       category: "Riving",
+      machineType: "Rivningsmaskin",
       isReference: true,
       imageUrl: "https://drive.google.com/thumbnail?id=15SUyArBnX-WP0GI1hm6Y3pwYt4z1ZU_3&sz=w800"
     },
@@ -2635,6 +2714,7 @@ const TilbudsbibliotekPage = () => {
       location: "Harstad",
       status: "Vunnet",
       category: "VA",
+      machineType: "Gravemaskin",
       isReference: true,
       imageUrl: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2670&auto=format&fit=crop"
     },
@@ -2647,6 +2727,7 @@ const TilbudsbibliotekPage = () => {
       location: "Lakselv",
       status: "Vunnet",
       category: "Miljøsanering",
+      machineType: "Dumper",
       isReference: true,
       imageUrl: "https://images.unsplash.com/photo-1599691653303-34e2c0571b76?q=80&w=2670&auto=format&fit=crop"
     },
@@ -2659,6 +2740,7 @@ const TilbudsbibliotekPage = () => {
       location: "Harstad",
       status: "Vunnet",
       category: "VA",
+      machineType: "Hjullaster",
       isReference: true,
       imageUrl: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=2669&auto=format&fit=crop"
     },
@@ -2671,6 +2753,7 @@ const TilbudsbibliotekPage = () => {
       location: "Ramsund",
       status: "Vunnet",
       category: "Miljø/Grunn",
+      machineType: "Dumper",
       isReference: true,
       imageUrl: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2670&auto=format&fit=crop"
     },
@@ -2683,6 +2766,7 @@ const TilbudsbibliotekPage = () => {
       location: "Harstad",
       status: "Vunnet",
       category: "Park/Anlegg",
+      machineType: "Minigraver",
       isReference: true,
       imageUrl: "https://images.unsplash.com/photo-1558435186-d31d102353a9?q=80&w=2670&auto=format&fit=crop"
     },
@@ -2695,6 +2779,7 @@ const TilbudsbibliotekPage = () => {
       location: "Harstad",
       status: "Pågående",
       category: "VA",
+      machineType: "Gravemaskin",
       isReference: false,
       imageUrl: "https://images.unsplash.com/photo-1590644365607-1c5a2e97a39e?q=80&w=2670&auto=format&fit=crop"
     },
@@ -2707,6 +2792,7 @@ const TilbudsbibliotekPage = () => {
       location: "Nordland",
       status: "Tapt",
       category: "Vei/Tunnel",
+      machineType: "Tunnelmaskin",
       isReference: false,
       imageUrl: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2669&auto=format&fit=crop"
     }
@@ -2718,14 +2804,59 @@ const TilbudsbibliotekPage = () => {
     ));
   };
 
+  // Get unique machine types for filter dropdown
+  const machineTypes = [...new Set(projects.map(p => p.machineType))].sort();
+
   // Filter logic
   const filteredProjects = projects.filter(p => {
     const statusMatch = statusFilter === 'all' || p.status === statusFilter;
+    const machineMatch = machineFilter === 'all' || p.machineType === machineFilter;
     const referenceMatch = !showReferencesOnly || p.isReference;
-    return statusMatch && referenceMatch;
+    return statusMatch && machineMatch && referenceMatch;
   });
 
   const referenceCount = projects.filter(p => p.isReference).length;
+  const referenceProjects = projects.filter(p => p.isReference);
+
+  // Export PDF function
+  const exportToPDF = () => {
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>Referanseprosjekter - Eksport</title>
+          <style>
+            body { font-family: Arial, sans-serif; padding: 40px; max-width: 800px; margin: 0 auto; }
+            h1 { color: #008489; border-bottom: 2px solid #008489; padding-bottom: 10px; }
+            .project { margin-bottom: 30px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; }
+            .project h2 { margin: 0 0 10px 0; color: #0B2333; }
+            .project p { margin: 5px 0; color: #6D7B85; }
+            .project .value { font-weight: bold; color: #0B2333; }
+            .machine-tag { display: inline-block; background: #CCE6E7; color: #008489; padding: 4px 12px; border-radius: 12px; font-size: 12px; margin-top: 10px; }
+            .header-info { color: #6D7B85; margin-bottom: 30px; }
+            @media print { body { padding: 20px; } }
+          </style>
+        </head>
+        <body>
+          <h1>Referanseprosjekter</h1>
+          <p class="header-info">Eksportert: ${new Date().toLocaleDateString('nb-NO')} | Antall prosjekter: ${referenceProjects.length}</p>
+          ${referenceProjects.map(p => `
+            <div class="project">
+              <h2>${p.title}</h2>
+              <p><strong>Oppdragsgiver:</strong> ${p.client}</p>
+              <p><strong>Verdi:</strong> <span class="value">${p.value}</span></p>
+              <p><strong>Periode:</strong> ${p.period}</p>
+              <p><strong>Sted:</strong> ${p.location}</p>
+              <p><strong>Kategori:</strong> ${p.category}</p>
+              <span class="machine-tag">${p.machineType}</span>
+            </div>
+          `).join('')}
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
+    printWindow.print();
+  };
 
   return (
     <main className="main-content">
@@ -2752,15 +2883,35 @@ const TilbudsbibliotekPage = () => {
           </button>
         </div>
 
-        <button
-          className={`reference-toggle ${showReferencesOnly ? 'active' : ''}`}
-          onClick={() => setShowReferencesOnly(!showReferencesOnly)}
-        >
-          <svg viewBox="0 0 24 24" fill={showReferencesOnly ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-          </svg>
-          Kun referanseprosjekter ({referenceCount})
-        </button>
+        <div className="filter-row-right">
+          <select
+            className="machine-filter-select"
+            value={machineFilter}
+            onChange={(e) => setMachineFilter(e.target.value)}
+          >
+            <option value="all">Alle maskintyper</option>
+            {machineTypes.map(type => (
+              <option key={type} value={type}>{type}</option>
+            ))}
+          </select>
+
+          <button
+            className={`reference-toggle ${showReferencesOnly ? 'active' : ''}`}
+            onClick={() => setShowReferencesOnly(!showReferencesOnly)}
+          >
+            <svg viewBox="0 0 24 24" fill={showReferencesOnly ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+            </svg>
+            Kun referanseprosjekter ({referenceCount})
+          </button>
+
+          <button className="btn btn-primary export-pdf-btn" onClick={exportToPDF}>
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{width: '16px', height: '16px'}}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            Eksporter PDF
+          </button>
+        </div>
       </div>
 
       <div className="project-cards-grid">
